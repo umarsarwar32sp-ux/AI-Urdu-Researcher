@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urdu Research AI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="brand">
+        <span>اردو</span>
+        <div>
+            <h2>Urdu Research</h2>
+            <small>AI Knowledge Center</small>
+        </div>
+    </div>
+
+    <p class="menu-title">MAIN MENU</p>
+    <button class="nav active" data-page="dashboard">⌂ Dashboard</button>
+    <button class="nav" data-page="research">⌕ AI Research</button>
+    <button class="nav" data-page="dictionary">📖 Urdu Dictionary</button>
+    <button class="nav" data-page="library">▤ Urdu Library</button>
+    <button class="nav" data-page="poetry">✒ Urdu Poetry</button>
+    <button class="nav" data-page="grammar">✎ Urdu Grammar</button>
+    <button class="nav" data-page="history">◷ Urdu History</button>
+    <button class="nav" data-page="notes">▣ My Research Notes</button>
+
+    <div class="sidebar-bottom">
+        <p>URDU RESEARCH AI</p>
+        <small>Version 1.0 | Knowledge Platform</small>
+    </div>
+</div>
+
+<main class="main">
+
+    <header class="topbar">
+        <div>
+            <h2 id="pageTitle">Dashboard</h2>
+            <small>Explore the world of Urdu knowledge</small>
+        </div>
+        <div class="profile">U</div>
+    </header>
+
+    <section id="dashboard" class="page">
+        <div class="hero">
+            <div>
+                <span class="tag">INTELLIGENT URDU PLATFORM</span>
+                <h1>Welcome to Urdu Research AI</h1>
+                <p>Discover, research and learn everything about Urdu language and literature.</p>
+                <button class="gold-btn" onclick="showPage('research')">
+                    Start Research →
+                </button>
+            </div>
+            <div class="hero-urdu">اردو ہماری پہچان ہے</div>
+        </div>
+
+        <h3 class="section-heading">Explore Knowledge</h3>
+
+        <div class="cards">
+            <div class="card" onclick="showPage('research')">
+                <span>🧠</span>
+                <h3>AI Research</h3>
+                <p>Ask questions and explore Urdu knowledge.</p>
+            </div>
+            <div class="card" onclick="showPage('dictionary')">
+                <span>📚</span>
+                <h3>Dictionary</h3>
+                <p>Urdu words, meanings and vocabulary.</p>
+            </div>
+            <div class="card" onclick="showPage('library')">
+                <span>📖</span>
+                <h3>Urdu Library</h3>
+                <p>Explore literature and famous writers.</p>
+            </div>
+            <div class="card" onclick="showPage('poetry')">
+                <span>✒</span>
+                <h3>Poetry</h3>
+                <p>Explore Urdu poets and poetry.</p>
+            </div>
+            <div class="card" onclick="showPage('grammar')">
+                <span>✍</span>
+                <h3>Grammar</h3>
+                <p>Learn Urdu grammar and language rules.</p>
+            </div>
+            <div class="card" onclick="showPage('history')">
+                <span>🏛</span>
+                <h3>History</h3>
+                <p>Discover the history of Urdu language.</p>
+            </div>
+        </div>
+
+        <div class="info-panel">
+            <h3>Urdu Knowledge Explorer</h3>
+            <p>ایک ایسا پلیٹ فارم جہاں اردو زبان، ادب، شاعری، تاریخ اور تحقیق ایک جگہ موجود ہوں۔</p>
+        </div>
+    </section>
+
+    <section id="research" class="page hidden">
+        <div class="panel">
+            <h2>🧠 AI Research Assistant</h2>
+            <p>Ask any question about Urdu language, literature and history.</p>
+            <div id="chatBox" class="chat-box">
+                <div class="bot-message">
+                    السلام علیکم! میں آپ کا اردو ریسرچ اسسٹنٹ ہوں۔
+                    آپ اردو کے بارے میں کیا جاننا چاہتے ہیں؟
+                </div>
+            </div>
+            <div class="chat-input">
+                <input id="question" placeholder="اپنا سوال یہاں لکھیں..." dir="auto">
+                <button class="gold-btn" onclick="askAI()">Ask AI</button>
+            </div>
+            <small class="muted">Demo mode: حقیقی AI جواب کے لیے API اور backend درکار ہوگا۔</small>
+        </div>
+    </section>
+
+    <section id="dictionary" class="page hidden">
+        <div class="panel">
+            <h2>📖 Urdu Dictionary</h2>
+            <p>Search Urdu words and discover their meanings.</p>
+            <input id="wordSearch" placeholder="لفظ تلاش کریں..." oninput="searchWord(this.value)" dir="auto">
+            <div id="dictionaryResults"></div>
+        </div>
+    </section>
+
+    <section id="library" class="page hidden">
+        <div class="panel">
+            <h2>📚 Urdu Digital Library</h2>
+            <div id="libraryContent"></div>
+        </div>
+    </section>
+
+    <section id="poetry" class="page hidden">
+        <div class="panel">
+            <h2>✒ Urdu Poetry Center</h2>
+            <div id="poetryContent"></div>
+        </div>
+    </section>
+
+    <section id="grammar" class="page hidden">
+        <div class="panel">
+            <h2>✍ Urdu Grammar Center</h2>
+            <div id="grammarContent"></div>
+        </div>
+    </section>
+
+    <section id="history" class="page hidden">
+        <div class="panel">
+            <h2>🏛 History of Urdu Language</h2>
+            <div class="urdu-text">
+                اردو برصغیر کی ایک اہم زبان ہے جس کی تشکیل مختلف لسانی اور تہذیبی روابط کے نتیجے میں ہوئی۔ اس زبان میں فارسی، عربی، ترکی اور مقامی زبانوں کے اثرات شامل ہیں۔
+            </div>
+            <h3>Research Topics</h3>
+            <ul>
+                <li>اردو زبان کا آغاز</li>
+                <li>دہلی اور لکھنؤ کے ادبی مراکز</li>
+                <li>دورِ دکن میں اردو</li>
+                <li>اردو نثر کا ارتقا</li>
+                <li>جدید اردو ادب</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="notes" class="page hidden">
+        <div class="panel">
+            <h2>📝 My Research Notes</h2>
+            <textarea id="noteInput" placeholder="اپنے تحقیقی نوٹس لکھیں..."></textarea>
+            <button class="gold-btn" onclick="saveNote()">Save Note</button>
+            <div id="savedNotes"></div>
+        </div>
+    </section>
+
+    <footer>© 2026 Urdu Research AI | All Rights Reserved</footer>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
