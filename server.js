@@ -1,13 +1,9 @@
 
-require("dotenv").config();
-
 const express = require("express");
-const path = require("path");
 
 const app = express();
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname)));
 
 app.post("/api/research", async (req, res) => {
   try {
@@ -15,7 +11,7 @@ app.post("/api/research", async (req, res) => {
 
     if (!question || !question.trim()) {
       return res.status(400).json({
-        error: "Please enter your question."
+        error: "Please enter a question."
       });
     }
 
@@ -24,7 +20,7 @@ app.post("/api/research", async (req, res) => {
       {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
           "Content-Type": "application/json",
           "X-OpenRouter-Title": "Urdu Research AI"
         },
@@ -33,12 +29,7 @@ app.post("/api/research", async (req, res) => {
           messages: [
             {
               role: "system",
-              content: `You are Urdu Research AI, an expert research assistant.
-              Help users with Urdu language, literature, poetry,
-              grammar, history and academic research.
-              Answer in the language used by the user.
-              Give detailed, accurate and organized answers.
-              Never invent references or quotations.`
+              content: "You are Urdu Research AI. You are an expert in Urdu language, literature, poetry, grammar, history and academic research. Answer accurately in the user's language. Never invent references."
             },
             {
               role: "user",
@@ -54,34 +45,21 @@ app.post("/api/research", async (req, res) => {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("OpenRouter Error:", data);
-
       return res.status(response.status).json({
-        error: data.error?.message || "AI service error."
+        error: data.error?.message || "OpenRouter error"
       });
     }
 
-    const answer = data.choices?.[0]?.message?.content;
-
-    if (!answer) {
-      return res.status(502).json({
-        error: "AI returned an empty answer."
-      });
-    }
-
-    res.json({ answer });
+    res.json({
+      answer: data.choices?.[0]?.message?.content || "No answer received."
+    });
 
   } catch (error) {
-    console.error("Server Error:", error);
-
+    console.error(error);
     res.status(500).json({
       error: "Server connection failed."
     });
   }
 });
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Urdu Research AI running on port ${PORT}`);
-});
+module.exports = app;
